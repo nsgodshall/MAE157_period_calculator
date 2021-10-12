@@ -9,11 +9,7 @@ data = np.genfromtxt(fname, delimiter=",")
 time = data[:,0][:500]
 sensor = data[:,1][:500]
 
-for i in range(len(sensor)):
-    if(sensor[i] == 0):
-        sensor[i] = 1
-    else:
-        sensor[i] = 0
+sensor = abs(sensor - 1)
 
 peaks, _ = find_peaks(sensor, height = 0.250)
 
@@ -24,4 +20,4 @@ for p in range(len(periods)):
     if(p%2 == 1):
         tot += periods[p] - periods[p-1]
         count += 1
-print("{:.4f} seconds".format((tot/count)))
+print("{:.6f} seconds".format((tot/count)/1000))
